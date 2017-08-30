@@ -6,8 +6,8 @@ const webpack = require('webpack');
 const config = require('./webpack.config');
 const appConfig = config[0];
 
-const staticPrefix = 'src/sentry/static/sentry',
-  distPath = path.join(__dirname, staticPrefix, 'dist');
+const staticPrefix = 'src/sentry/static/sentry';
+let distPath = path.join(__dirname, staticPrefix, 'dist');
 
 // this is set by setup.py sdist
 if (process.env.SENTRY_STATIC_DIST_PATH) {
@@ -21,7 +21,7 @@ const main = Object.assign({}, appConfig, {
 });
 
 main.plugins = appConfig.plugins
-  .filter(plugin => !(plugin instanceof webpack.optimize.CommonsChunkPlugin))
+  // .filter(plugin => !(plugin instanceof webpack.optimize.CommonsChunkPlugin))
   .concat([
     new webpack.DllReferencePlugin({
       context: __dirname,
