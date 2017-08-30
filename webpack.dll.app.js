@@ -1,20 +1,21 @@
 /*eslint-env node*/
-const path = require('path');
+/*eslint no-var:0*/
+var path = require('path');
 
-const webpack = require('webpack');
+var webpack = require('webpack');
 
-const config = require('./webpack.config');
-const appConfig = config[0];
+var config = require('./webpack.config');
+var appConfig = config[0];
 
-const staticPrefix = 'src/sentry/static/sentry';
-let distPath = path.join(__dirname, staticPrefix, 'dist');
+var staticPrefix = 'src/sentry/static/sentry';
+var distPath = path.join(__dirname, staticPrefix, 'dist');
 
 // this is set by setup.py sdist
 if (process.env.SENTRY_STATIC_DIST_PATH) {
   distPath = process.env.SENTRY_STATIC_DIST_PATH;
 }
 
-const main = Object.assign({}, appConfig, {
+var main = Object.assign({}, appConfig, {
   entry: {
     app: appConfig.entry.app
   }
