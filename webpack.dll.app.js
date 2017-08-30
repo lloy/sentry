@@ -3,7 +3,8 @@ const path = require('path');
 
 const webpack = require('webpack');
 
-const [appConfig, ...otherConfig] = require('./webpack.config');
+const config = require('./webpack.config');
+const appConfig = config[0];
 
 const staticPrefix = 'src/sentry/static/sentry',
   distPath = path.join(__dirname, staticPrefix, 'dist');
@@ -40,4 +41,4 @@ main.plugins = appConfig.plugins
     })
   ]);
 
-module.exports = [main, ...otherConfig];
+module.exports = [main].concat(config.slice(1));

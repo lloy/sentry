@@ -3,7 +3,8 @@ const path = require('path');
 
 const webpack = require('webpack');
 
-const [appConfig] = require('./webpack.config');
+const config = require('./webpack.config');
+const appConfig = config[0];
 
 const staticPrefix = 'src/sentry/static/sentry',
   distPath = path.join(__dirname, staticPrefix, 'dist');
