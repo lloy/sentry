@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 import jQuery from 'jquery';
+import 'select2';
+import 'vendor/simple-slider/simple-slider';
 
 import plugins from './plugins';
 

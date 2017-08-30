@@ -15,14 +15,16 @@ if (process.env.SENTRY_STATIC_DIST_PATH) {
   distPath = process.env.SENTRY_STATIC_DIST_PATH;
 }
 
+const newEntry = Object.assign({}, appConfig.entry);
+delete newEntry.vendor;
+delete newEntry.shared;
+
 var main = Object.assign({}, appConfig, {
-  entry: {
-    app: appConfig.entry.app
-  }
+  entry: newEntry
 });
 
 main.plugins = appConfig.plugins
-  // .filter(plugin => !(plugin instanceof webpack.optimize.CommonsChunkPlugin))
+  .filter(plugin => !(plugin instanceof webpack.optimize.CommonsChunkPlugin))
   .concat([
     new webpack.DllReferencePlugin({
       context: __dirname,
@@ -35,11 +37,11 @@ main.plugins = appConfig.plugins
       manifest: require(path.resolve(distPath, 'shared-manifest.json')),
       name: 'shared',
       extensions: ['', '.js', '.jsx']
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
     })
+    // new webpack.optimize.CommonsChunkPlugin({
+    // name: 'manifest',
+    // minChunks: Infinity
+    // })
   ]);
 
 module.exports = [main].concat(config.slice(1));
