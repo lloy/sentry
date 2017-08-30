@@ -19,6 +19,8 @@ class AuthIdentity(Model):
     last_synced = models.DateTimeField(default=timezone.now)
     date_added = models.DateTimeField(default=timezone.now)
 
+    identity = FlexibleForeignKey('sentry.Identity', null=True)
+
     class Meta:
         app_label = 'sentry'
         db_table = 'sentry_authidentity'
